@@ -1,0 +1,40 @@
+﻿@model MaerskLine.Models.ViewSchedule
+@{
+    ViewBag.Title = "ResultSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ResultSearch</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Vessel Name</th>
+            <th>Load Port</th>
+            <th>Discharge Port</th>
+            <th>Departure Date</th>
+            <th>Arrived Date</th>
+            <th>Booking</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model.ListSchedule)
+        {
+
+            <tr>
+                <td>@v.Vessels.VesselName</td>
+                <td>@v.LoadPort</td>
+                <td>@v.DischargePort</td>
+                <td>@v.DepartureDate</td>
+                <td>@v.ArrivedDate</td>
+
+                <td><a href='/Booking/BookingForm/ @v.Id'> Book </a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

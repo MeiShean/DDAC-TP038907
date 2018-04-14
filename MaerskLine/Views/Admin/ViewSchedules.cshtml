@@ -1,0 +1,43 @@
+﻿@model MaerskLine.Models.ViewSchedule
+@{
+    ViewBag.Title = "ViewSchedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<h2>View Schedules</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Vessel Id</th>
+            <th>Load Port</th>
+            <th>Discharge Port</th>
+            <th>Departure Date</th>
+            <th>Arrived Date</th>
+            <th>Transit Time</th>
+            <th>Available Space</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model.ListSchedule)
+        {
+
+            <tr>
+                <td>@v.VesselId</td>
+                <td>@v.LoadPort</td>
+                <td>@v.DischargePort</td>
+                <td>@v.DepartureDate</td>
+                <td>@v.ArrivedDate</td>
+                <td>@v.TransitTime</td>
+                <td>@v.AvailableSpace</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

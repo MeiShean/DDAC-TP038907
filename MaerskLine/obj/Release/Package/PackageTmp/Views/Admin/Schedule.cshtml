@@ -1,0 +1,82 @@
+﻿@model MaerskLine.Models.ViewVessel
+@{
+    ViewBag.Title = "Schedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Schedule</h2>
+
+@using (Html.BeginForm("Save", "Admin", new { @class = "form-horizontal", role = "form" }))
+
+{
+    @Html.AntiForgeryToken()
+    <p class="alert-success">@ViewBag.Fail</p>
+    <p class="alert-success">@ViewBag.SuccessMessage</p>
+    <p class="alert-success">@ViewBag.FailAgain</p>
+    <h4>Define Vessel Schedule.</h4>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.schedule.VesselId)
+        @Html.DropDownListFor(m => m.schedule.VesselId, new SelectList(Model.ViewVessels, "VesselId", "VesselName"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.schedule.VesselId, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class=" form-group">
+        @Html.LabelFor(m => m.schedule.LoadPort)
+        @Html.TextBoxFor(m => m.schedule.LoadPort, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.schedule.LoadPort, "", new { @class = "text-danger" })
+    </div>
+
+    <div class=" form-group">
+        @Html.LabelFor(m => m.schedule.DischargePort)
+        @Html.TextBoxFor(m => m.schedule.DischargePort, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.schedule.DischargePort, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.schedule.DepartureDate)
+        @Html.TextBoxFor(m => m.schedule.DepartureDate, "{0:MM/dd/yyyy}", new { @class = "form-control date-picker", id = "departureDate" })
+        @Html.ValidationMessageFor(m => m.schedule.DepartureDate, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.schedule.ArrivedDate)
+        @Html.TextBoxFor(m => m.schedule.ArrivedDate, "{0:MM/dd/yyyy}", new { @class = "form-control date-picker", id = "arrivedDate" })
+        @Html.ValidationMessageFor(m => m.schedule.ArrivedDate, "", new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+            $('#departureDate').datepicker({
+                minDate: 1,
+                dateFormat: 'mm/dd/yy'
+            });
+
+            $('#arrivedDate').datepicker({
+                minDate :2,
+                dateFormat: 'mm/dd/yy'
+            });
+
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "MM/DD/YYYY", true).isValid();
+            }
+        })
+
+    </script>
+
+}
+
+
+
+
+
+
+
+

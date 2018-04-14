@@ -1,0 +1,28 @@
+﻿@model MaerskLine.Models.ViewAgent
+@{
+    ViewBag.Title = "ViewAgent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<h2>ViewAgent</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Agent</th>
+            <th>Email</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model.ViewAgents)
+        {
+            <tr>
+                <td>@a.Name</td>
+                <td>@a.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

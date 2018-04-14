@@ -1,0 +1,47 @@
+﻿@model MaerskLine.Models.ViewBookingVessel
+@{
+    ViewBag.Title = "Booking Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<h2>BookingForm</h2>
+
+<ul>
+
+    <li><span><b>Vessel Name:</b> </span>@Model.Schedule.Vessels.VesselName</li>
+    <li><span><b>Load Port:</b></span>@Model.Schedule.LoadPort</li>
+    <li><span><b>Discharge Port:</b></span>@Model.Schedule.DischargePort</li>
+    <li><span><b>Departure Date:</b></span>@Model.Schedule.DepartureDate</li>
+    <li><span><b>Arrived Date:</b></span>@Model.Schedule.ArrivedDate</li>
+</ul>
+
+
+@using (Html.BeginForm("Add", "Booking", new { @class = "form-horizontal", role = "form" }))
+{
+    <p class="alert-success">@ViewBag.SuccessMessage</p>
+    <p class="alert-success">@ViewBag.Success</p>
+    <p class="alert-success">@ViewBag.ErrorMesssage</p>
+    @Html.ValidationSummary(true)
+    @Html.ValidationMessage("Error")
+    <div class="form-group">
+        @Html.LabelFor(m => m.Booking.Item)
+        @Html.TextBoxFor(m => m.Booking.Item, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Booking.Item)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Booking.CustomerId)
+        @Html.DropDownListFor(m => m.Booking.CustomerId, new SelectList(Model.ListCustomer, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Booking.CustomerId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Booking.Space)
+        @Html.DropDownListFor(m => m.Booking.Space, Enumerable.Range(1, 40).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+        @Html.ValidationMessageFor(m => m.Booking.Space)
+    </div>
+    @Html.HiddenFor(m => m.Booking.ScheduleId)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
